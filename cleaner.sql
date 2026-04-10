@@ -4,7 +4,7 @@ USE cleaner;
 
 CREATE TABLE oficina (
   codigo_oficina VARCHAR(10) NOT NULL,
-  ciudad VARCHAR(30) NOT NULL,
+  ciudad VARCHAR(30) NOT NULL, 
   pais VARCHAR(50) NOT NULL,
   region VARCHAR(50) DEFAULT NULL,
   codigo_postal VARCHAR(10) NOT NULL,
