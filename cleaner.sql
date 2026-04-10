@@ -938,60 +938,66 @@ SELECT codigo_empleado, nombre, apellido1, apellido2,
 extension, email, codigo_oficina, codigo_jefe
 puesto FROM EMPLEADO;
 
-/* RETO 1 - Retorna un listado con el código de oficina y 
+/* RETO A - Retorna un listado con el código de oficina y 
 la ciudad donde hay oficinas */
 
+show tables;
 describe oficina;
+select codigo_oficina, ciudad, pais, region, codigo_postal, telefono, linea_direccion1, linea_direccion2 from oficina;
+select codigo_oficina, ciudad from oficina;
 
-select o.codigo_oficina as cod_oficina, o.ciudad country,
-concat(o.codigo_oficina,' - ', o.ciudad) as cod_ciudad_oficina
- from oficina o;
  
- /* RETO 2 - Retorna un listado con la ciudad y 
+ /* RETO B - Retorna un listado con la ciudad y 
  el telefono de las oficinas en España. */
  
- select ciudad, telefono, pais from oficina
- where upper(pais) = 'ESPAÑA';
+show tables;
+describe oficina;
+select codigo_oficina, ciudad, pais, region, codigo_postal, telefono, linea_direccion1, linea_direccion2 from oficina;
+select ciudad, telefono from oficina where pais = 'España';
  
- /* RETO 3 - Retorna el listado con todos los clientes que sean
+ /* RETO C - Retorna el listado con todos los clientes que sean
  de la ciudad de Madrid y cuyo representante de ventas tenga 
  el código de empleado 11 ó 30. */
  
- describe cliente;
- describe empleado;
- 
- select count(*) total_registros /*cl.ciudad, em.codigo_empleado */
- from cliente cl 
- join empleado em 
- on em.codigo_empleado = cl.codigo_empleado_rep_ventas
- where upper(cl.ciudad) = 'MADRID'
- and (em.codigo_empleado = 11 
- OR em.codigo_empleado = 30);
- 
-  select count(*) total_registros /*cl.ciudad, em.codigo_empleado */
- from cliente cl 
- join empleado em 
- on em.codigo_empleado = cl.codigo_empleado_rep_ventas
- where upper(cl.ciudad) = 'MADRID'
- and em.codigo_empleado in (11,30); 
- 
-select count(*) total_registros /*cl.ciudad, em.codigo_empleado */
- from cliente cl,  empleado em 
- where em.codigo_empleado = cl.codigo_empleado_rep_ventas
- and upper(cl.ciudad) = 'MADRID'
- and em.codigo_empleado in (11,30); 
- 
- select em.codigo_empleado, count(*) total_registros /*cl.ciudad, em.codigo_empleado */
- from cliente cl,  empleado em 
- where em.codigo_empleado = cl.codigo_empleado_rep_ventas
- and upper(cl.ciudad) = 'MADRID'
- and em.codigo_empleado in (11,30)
- group by em.codigo_empleado; 
+show tables;
+describe empleado;
+select codigo_empleado, nombre, apellido1, apellido2, extension, email, codigo_oficina, codigo_jefe, puesto from empleado;
+select nombre, apellido1, apellido2, email from empleado where codigo_jefe = 7;
 
- select cl.ciudad, count(*) total_registros /*cl.ciudad, em.codigo_empleado */
- from cliente cl,  empleado em 
- where em.codigo_empleado = cl.codigo_empleado_rep_ventas
- and em.codigo_empleado in (11,30)
- group by cl.ciudad
- order by cl.ciudad desc; 
+/* RETO D -Retorna el nombre del puesto, nombre, apellidos y correo electrónico del jefe de la empresa. */
+show tables;
+describe empleado;
+select codigo_empleado, nombre, apellido1, apellido2, extension, email, codigo_oficina, codigo_jefe, puesto from empleado;
+select puesto, nombre, apellido1, apellido2, email from empleado where codigo_jefe IS NULL;
+
+/* RETO C -Retorna un listado con el nombre, apellidos y puesto de aquellos empleados que no son representantes de ventas. */
+show tables;
+describe empleado;
+select codigo_empleado, nombre, apellido1, apellido2, extension, email, codigo_oficina, codigo_jefe, puesto from empleado;
+select nombre, apellido1, apellido2, puesto from empleado where puesto <> 'Representante Ventas';
+
+/* RETO E - Retorna un listado con el nombre de los todos los clientes españoles. */
+show tables;
+describe cliente;
+select codigo_cliente, nombre_cliente, nombre_contacto, apellido_contacto, telefono, fax, linea_direccion1, linea_direccion2, ciudad, region, pais, codigo_postal, codigo_empleado_rep_ventas, limite_credito from cliente;
+select nombre_cliente from cliente where pais = 'Spain';
+
+/* RETO F -Retorna un listado con los distintos estados por los que puede pasar un pedido. */
+show tables;
+describe pedido;
+select codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comentarios, codigo_cliente from pedido;
+select DISTINCT estado from pedido;
+
+/* RETO H - Genera un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos que no han sido entregados a tiempo.. */
+show tables;
+describe pedido;
+select codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comentarios, codigo_cliente from pedido;
+select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega from pedido where fecha_entrega > fecha_esperada;
+
+/* RETO J - Genera un listado de todos los pedidos que fueron rechazados en 2009. */
+
+show tables;
+describe pedido;
+select codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comentarios, codigo_cliente from pedido;
+select codigo_pedido, fecha_pedido, estado from pedido where estado = 'Rechazado' AND YEAR(fecha_pedido) = 2009;
 
