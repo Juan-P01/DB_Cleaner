@@ -987,10 +987,18 @@ select codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comen
 select DISTINCT estado from pedido;
 
 /* RETO H - Genera un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos que no han sido entregados a tiempo.. */
-show tables;
-describe pedido;
-select codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comentarios, codigo_cliente from pedido;
-select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega from pedido where fecha_entrega > fecha_esperada;
+SHOW TABLES;
+
+DESCRIBE pedido;
+
+SELECT codigo_pedido, fecha_pedido, fecha_esperada, fecha_entrega, estado, comentarios, codigo_cliente 
+FROM pedido;
+
+-- Pedidos no entregados a tiempo: entregados tarde O aún sin entregar
+SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+FROM pedido
+WHERE fecha_entrega > fecha_esperada
+   OR fecha_entrega IS NULL; 
 
 
 /* RETO G  Genera un listado con el código de cliente de aquellos clientes que realizaron algún pago en 2008. Tenga en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan repetidos. Resuelva la consulta:
@@ -1026,21 +1034,25 @@ WHERE fecha_pago BETWEEN '2008-01-01' AND '2008-12-31';
 SHOW TABLES;
 
 DESCRIBE pedido;
-
 SELECT * FROM pedido;
 
-SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
-FROM pedido;
-
-
+-- 1. Utilizando la función ADDDATE de MySQL
 SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
 FROM pedido
 WHERE fecha_entrega <= ADDDATE(fecha_esperada, INTERVAL -2 DAY);
 
 
+-- 2. Utilizando la función DATEDIFF de MySQL
 SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
 FROM pedido
 WHERE DATEDIFF(fecha_esperada, fecha_entrega) >= 2;
+
+
+-- 3. Utilizando el operador de resta -
+-- Sí es posible. En MySQL se puede operar directamente sobre fechas con + y -
+SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+FROM pedido
+WHERE fecha_entrega <= fecha_esperada - INTERVAL 2 DAY;
 
 /* RETO J - Genera un listado de todos los pedidos que fueron rechazados en 2009. */
 
