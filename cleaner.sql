@@ -955,9 +955,7 @@ describe oficina;
 select codigo_oficina, ciudad, pais, region, codigo_postal, telefono, linea_direccion1, linea_direccion2 from oficina;
 select ciudad, telefono from oficina where pais = 'España';
  
- /* RETO C - Retorna el listado con todos los clientes que sean
- de la ciudad de Madrid y cuyo representante de ventas tenga 
- el código de empleado 11 ó 30. */
+ /* RETO C - Retorna el listado con todos los clientes que sean  de la ciudad de Madrid y cuyo representante de ventas tenga  el código de empleado 11 ó 30. */
  
 show tables;
 describe empleado;
@@ -996,8 +994,7 @@ select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega from pedido 
 
 
 /* RETO G  Genera un listado con el código de cliente de aquellos clientes que realizaron algún pago en 2008. Tenga en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan repetidos. Resuelva la consulta:
-Utilizando la función YEAR de MySQL.
-Utilizando la función DATE_FORMAT de MySQL. *Sin utilizar ninguna de las funciones anteriores.*/
+Utilizando la función YEAR de MySQL. Utilizando la función DATE_FORMAT de MySQL. *Sin utilizar ninguna de las funciones anteriores.*/
 
 SHOW TABLES;
 
@@ -1008,25 +1005,23 @@ SELECT * FROM pago;
 SELECT codigo_cliente, fecha_pago
 FROM pago;
 
-/*RESPUESTA (YEAR)*/
+
 SELECT DISTINCT codigo_cliente
 FROM pago
 WHERE YEAR(fecha_pago) = 2008;
 
-/*RESPUESTA (DATE_FORMAT)*/
+
 SELECT DISTINCT codigo_cliente
 FROM pago
 WHERE DATE_FORMAT(fecha_pago, '%Y') = '2008';
 
-/*RESPUESTA (SIN FUNCIONES)*/
+
 SELECT DISTINCT codigo_cliente
 FROM pago
 WHERE fecha_pago BETWEEN '2008-01-01' AND '2008-12-31';
 
 
-/* RETO I  Genera un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada. Utilizando la función ADDDATE de MySQL.
-Utilizando la función DATEDIFF de MySQL.
-¿Sería posible resolver esta consulta utilizando el operador de suma + o resta -?*/
+/* RETO I  Genera un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada. Utilizando la función ADDDATE de MySQL.*/
 
 SHOW TABLES;
 
