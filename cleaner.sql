@@ -1061,12 +1061,9 @@ SHOW TABLES;
 DESCRIBE pedido;
 
 SELECT * FROM pedido;
-SELECT codigo_pedido, fecha_entrega
-FROM pedido;
+SELECT codigo_pedido, fecha_entrega FROM pedido;
 
-SELECT *
-FROM pedido
-WHERE MONTH(fecha_entrega) = 1;
+SELECT * FROM pedido WHERE MONTH(fecha_entrega) = 1;
 
 /*RETO L. Genera un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.*/
 
@@ -1076,14 +1073,10 @@ DESCRIBE pago;
 
 SELECT * FROM pago;
 
-SELECT codigo_cliente, forma_pago, fecha_pago, total
-FROM pago;
+SELECT codigo_cliente, forma_pago, fecha_pago, total FROM pago;
 
-SELECT *
-FROM pago
-WHERE YEAR(fecha_pago) = 2008
-AND forma_pago = 'Paypal'
-ORDER BY total DESC;
+SELECT * FROM pago WHERE YEAR(fecha_pago) = 2008
+AND forma_pago = 'Paypal' ORDER BY total DESC;
 
 /*RETO M. Genera un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.*/
 
@@ -1093,11 +1086,9 @@ DESCRIBE pago;
 
 SELECT * FROM pago;
 
-SELECT forma_pago
-FROM pago;
+SELECT forma_pago FROM pago;
 
-SELECT DISTINCT forma_pago
-FROM pago;
+SELECT DISTINCT forma_pago FROM pago;
 
 /*RETO N. Genera un listado con todos los productos que pertenecen a la gama Ornamentales y que tienen más de 100 unidades en stock. El listado deberá estar ordenado por su precio de venta, mostrando en primer lugar los de mayor precio.*/
 
@@ -1107,12 +1098,9 @@ DESCRIBE producto;
 
 SELECT * FROM producto;
 
-SELECT nombre, gama, cantidad_en_stock, precio_venta
-FROM producto;
+SELECT nombre, gama, cantidad_en_stock, precio_venta FROM producto;
 
-SELECT *
-FROM producto
-WHERE gama = 'Ornamentales'
+SELECT * FROM producto WHERE gama = 'Ornamentales'
 AND cantidad_en_stock > 100
 ORDER BY precio_venta DESC;
 
@@ -1124,10 +1112,7 @@ DESCRIBE cliente;
 
 SELECT * FROM cliente;
 
-SELECT nombre_cliente, ciudad, codigo_empleado_rep_ventas
-FROM cliente;
+SELECT nombre_cliente, ciudad, codigo_empleado_rep_ventas FROM cliente;
 
-SELECT *
-FROM cliente
-WHERE ciudad = 'Madrid'
+SELECT * FROM cliente WHERE ciudad = 'Madrid'
 AND codigo_empleado_rep_ventas IN (11, 30);
